@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rgvh/book_app#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "superagent": "^5.0.5"
