@@ -63,9 +63,9 @@ function createSearch(request, response) {
 // constructor
 
 function Book(info) {
-  this.image_url = info.imageLinks.thumbnail ? info.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
-  this.title = info.title ? info.title : 'No title available';
-  this.author = info.authors;
-  this.description = info.description;
+  this.image_url = info.imageLinks.thumbnail || 'https://i.imgur.com/J5LVHEL.jpg';
+  this.title = info.title || 'No title available';
+  this.author = info.authors || 'No author available';
+  this.description = info.description || 'no description available';
   // const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 }
