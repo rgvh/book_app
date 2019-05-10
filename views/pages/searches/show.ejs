@@ -13,8 +13,13 @@
     <h1>Best Books!</h1>
     <h3>Search Results</h3>
     <div>
-    <% searchResults.forEach(results => { %>
-    <p><%= results.description%></p>
+      <% searchResults.forEach(results => { %>
+        <img src=<%= results.image_url %>>
+      <h2><%= results.title %></h2>
+      <ul>
+        <li><%= results.author %></li>
+      </ul>
+      <p><%= results.description %></p>
     <% }); %>
     </div>
   </body>
