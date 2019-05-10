@@ -62,9 +62,9 @@ function createSearch(request, response) {
 // constructor
 
 function Book(info) {
-  this.image_url = info.imageLinks.thumbnail;
-  this.title = info.title || 'No title available';;
+  this.image_url = info.imageLinks.thumbnail ? info.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
+  this.title = info.title ? info.title : 'No title available';
   this.author = info.authors;
   this.description = info.description;
-  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+  // const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 }
