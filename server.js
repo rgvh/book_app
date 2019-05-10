@@ -30,13 +30,7 @@ app.get('*', (request, response) => response.status(404).send('This route does n
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
-// HELPER FUNCTIONS
-function Book(info) {
-  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
-  this.title = info.title || 'No title available';
-
-}
-
+// HELPER FUNCTIONs
 
 // Note that .ejs file extension is not required
 function newSearch(request, response) {
