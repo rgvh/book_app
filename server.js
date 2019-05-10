@@ -1,5 +1,8 @@
 'use strict';
 
+// PROVIDE ACCESS TO ENVIRONMENTAL VARIABLES IN .env
+require('dotenv').config();
+
 // App dependencies
 const express = require('express');
 const superagent = require('superagent');
@@ -55,9 +58,9 @@ function createSearch(request, response) {
 
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-    .then(results => response.render('pages/searchs/show', { searchResults: results }));
+    .then(results => response.render('pages/searches/show', { searchResults: results }));
 
-    // Error handling ?
+  // Error handling ?
 
 
 }
