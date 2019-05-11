@@ -53,10 +53,14 @@ function createSearch(request, response) {
   superagent.get(url)
     // .then(apiResponse => console.log(apiResponse.body.items))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-    .then(results => response.render('pages/searches/show', { searchResults: results }));
+    .then(results => response.render('pages/searches/show', { searchResults: results }))
+    .catch(err => handleError(err, response));
 
   // Error handling ?
 
+  function handleError(error, response) {
+    response.render('pages/error', {error: error});
+  }
 
 }
 
@@ -69,3 +73,4 @@ function Book(info) {
   this.description = info.description || 'no description available';
   // const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 }
+
