@@ -1,3 +1,35 @@
 body {
   background-color: lightskyblue;
 }
+
+header {
+  background-color: black;
+  font-size: 3em;
+  color: white;
+}
+
+main {
+  background-color: lightsteelblue
+}
+
+div {
+  background-color: lightcyan
+}
+
+h4 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+li {
+  font-size: 1em;
+}
+
+p {
+  font-size: 1em;
+  padding: 3%;
+}
+

@@ -4,23 +4,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/icons.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/modules.css">
     <style>
       @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600');
     </style>
     <title>Book Search Results</title>
   </head>
   <body>
-    <h1>Best Books!</h1>
-    <h3>Search Results</h3>
-    <div>
+    <header>
+      <h1>Best Books!</h1>
+    </header>
+    <main>
+      <h4>Search Results</h4>
+      <div>
       <% searchResults.forEach(results => { %>
         <img src=<%= results.image_url %>>
-      <h2><%= results.title %></h2>
+      <h3><%= results.title %></h3>
       <ul>
         <li><%= results.author %></li>
       </ul>
       <p><%= results.description %></p>
     <% }); %>
-    </div>
+      </div>
+    </main>
   </body>
 </html>
