@@ -1,0 +1,25 @@
+header {
+  margin-left: auto;
+  padding: 2%;
+  height: 10%;
+}
+
+main {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+
+}
+
+input {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 18%;
+  height: 30%;
+}

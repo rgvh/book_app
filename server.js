@@ -30,13 +30,7 @@ app.get('*', (request, response) => response.status(404).send('This route does n
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
-// HELPER FUNCTIONS
-function Book(info) {
-  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
-  this.title = info.title || 'No title available';
-
-}
-
+// HELPER FUNCTIONs
 
 // Note that .ejs file extension is not required
 function newSearch(request, response) {
@@ -54,13 +48,24 @@ function createSearch(request, response) {
   if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}`; }
 
   console.log(url);
-  response.send( 'OK');
+  // response.send( 'OK');
 
   superagent.get(url)
+    // .then(apiResponse => console.log(apiResponse.body.items))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', { searchResults: results }));
 
   // Error handling ?
 
 
+}
+
+// constructor
+
+function Book(info) {
+  this.image_url = info.imageLinks.thumbnail || 'https://i.imgur.com/J5LVHEL.jpg';
+  this.title = info.title || 'No title available';
+  this.author = info.authors || 'No author available';
+  this.description = info.description || 'no description available';
+  // const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 }
