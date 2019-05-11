@@ -6,10 +6,16 @@ require('dotenv').config();
 // App dependencies
 const express = require('express');
 const superagent = require('superagent');
+const pg = require('pg');
 
 // App Setup
 const app = express();
 const PORT = process.env.PORT
+
+// Database setup
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', err => console.error(err));
 
 // Application Middleware
 app.use(express.urlencoded({ extended: true}));
@@ -53,7 +59,7 @@ function createSearch(request, response) {
   superagent.get(url)
     // .then(apiResponse => console.log(apiResponse.body.items))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-    .then(results => response.render('pages/searches/show', { searchResults: results }))
+    .then(results => response.render('pages/searches/new', { searchResults: results }))
     .catch(err => handleError(err, response));
 
   // Error handling ?
