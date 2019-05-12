@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <%- include('./layouts/head') %>
+      <%- include('../layouts/head') %>
   </head>
   <body>
     <header>
@@ -10,16 +10,16 @@
     <main>
       <h4>Search Results</h4>
         <ul class="search-results"></ul>
-          <% getBooks.forEach(id => { %>
-            <li data-book-id= <%= results.isbn %>
+          <% results.forEach(function(book) { %>
+            <li id= <%= book.isbn %>
               <div class="book-container">
-                <img src=<%= results.image_url %>
+                <img src=<%= book.image_url %>
                 <section>
-                  <h3><%= results.title %></h3>
-                  <span><%= results.author %></span>
-                  <p class="desc"><%= results.description %></p>
+                  <h3><%= book.title %></h3>
+                  <span><%= book.author %></span>
+                  <p class="description"><%= book.description %></p>
                 </section>
-              </section>
+              </div>
             </li>
           <% }); %>
           </ul>

@@ -44,9 +44,9 @@ function getBooks(request, response) {
   return client.query(SQL)
   .then(results => {
     console.log(results.rows);
-    response.render('pages/index', { results: results.row})
+    response.render('pages/index', { results: results.rows})
   })
-  // .catch(handleError(error, response));
+  .catch(handleError);
 }
 
 // Note that .ejs file extension is not required
@@ -71,15 +71,12 @@ function createSearch(request, response) {
     // .then(apiResponse => console.log(apiResponse.body.items))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/new', { searchResults: results }))
-    .catch(err => handleError(err, response));
-
-  // Error handling ?
-
-  function handleError(error, response) {
-    response.render('pages/error', {error: error});
-  };
-
+    .catch(error => handleError(error, response));
 }
+
+function handleError(error, response) {
+  response.status(500).render('pages/error', {error: error});
+};
 
 // constructor
 
