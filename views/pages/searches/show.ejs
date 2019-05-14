@@ -9,16 +9,21 @@
     </header>
     <main>
       <h4>Search Results</h4>
-      <div>
-      <% searchResults.forEach(results => { %>
-        <img src=<%= results.image_url %>>
-      <h3><%= results.title %></h3>
-      <ul>
-        <li><%= results.author %></li>
-      </ul>
-      <p><%= results.description %></p>
-    <% }); %>
-      </div>
+        <ul class="search-results">
+          <% searchResults.forEach(results => { %>
+            <li id= <%= book.isbn %>
+              <div class="book-containder">
+                <img src=<%= results.image_url %>>
+                <section>
+                  <h3><%= results.title %></h3>
+                  <span><%= results.author %></span>
+                  <p class="description"><%= results.description %></p>
+              </section>
+            </div>
+          </li>
+        <% }); %>
+        </ul>
     </main>
   </body>
 </html>
+

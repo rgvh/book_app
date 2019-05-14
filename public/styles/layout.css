@@ -5,21 +5,28 @@ header {
 }
 
 main {
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
+  margin: 0 auto;
 
 }
 
-input {
+/* input {
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  width: 70%
+} */
+
+.book-container {
+  margin: 0 auto;
 }
 
 img {
-  margin-left: auto;
-  margin-right: auto;
-  width: 18%;
-  height: 30%;
+  margin: 0 auto;
+}
+
+h3 {
+  margin: 0 auto;
+}
+
+span {
+  margin: 0 auto;
 }
