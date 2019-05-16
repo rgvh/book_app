@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <%- include('../layouts/head') %>
+  </head>
+  <body>
+        <%- include('../layouts/header') %>
+    <main>
+      <section class="book-container">
+      <%- include('../layouts/form', {formAction: 'update', book:book}) %>
+      </section>
+    </main>
+    <%- include('../layout/footer') %>
+  </body>
+</html>
