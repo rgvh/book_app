@@ -52,7 +52,7 @@ function getBooks(request, response) {
         response.render('pages/index', { results: results.rows})
       }
     })
-    .catch(handleError);
+    .catch(err => handleError(err, response));
 }
 
 // Note that .ejs file extension is not required
@@ -114,7 +114,7 @@ function createSearch(request, response) {
     // .then(apiResponse => console.log(apiResponse.body.items))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/new', { searchResults: results }))
-    .catch(error => handleError(error, response));
+    .catch(err => handleError(err, response));
 }
 
 function handleError(error, response) {
