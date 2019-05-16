@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('../layouts/head') %>
+    <%- include('../../layouts/head') %>
   </head>
+
   <body>
-      <%- include('../layouts/header') %>
+    <header>
+      <%- include('../../layouts/header') %>
+    </header>
+
     <main>
       <h4>Search by Title or Author</h4>
       <form action="/searches" method="post">
@@ -24,6 +28,9 @@
         <button type="submit">Search the Google Books API</button>
       </form>
     </main>
-    <%- include('../layout/footer') %>
+
+    <footer>
+      <%- include('../../layouts/footer') %>
+    </footer>
   </body>
 </html>

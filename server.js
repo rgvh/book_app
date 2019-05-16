@@ -40,6 +40,18 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // HELPER FUNCTIONs
 
+// constructor
+
+function Book(info) {
+  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+
+  this.image_url = info.imageLinks.smallThumbnail || placeholderImage;
+  this.title = info.title || 'No title available';
+  this.isbn = `ISBN_13 ${info.industryIdentifiers[0].identifier}` || 'No ISBN available';
+  this.author = info.authors[0] || 'No author available';
+  this.description = info.description || 'no description available';
+}
+
 function getBooks(request, response) {
   let SQL = 'SELECT * FROM books;';
 
@@ -113,7 +125,7 @@ function createSearch(request, response) {
   superagent.get(url)
     // .then(apiResponse => console.log(apiResponse.body.items))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-    .then(results => response.render('pages/searches/new', { searchResults: results }))
+    .then(results => response.render('pages/searches/show', { results: results }))
     .catch(err => handleError(err, response));
 }
 
@@ -121,15 +133,5 @@ function handleError(error, response) {
   response.status(500).render('pages/error', {error: error});
 }
 
-// constructor
 
-function Book(info) {
-  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
-
-  this.image_url = info.imageLinks.smallThumbnail || placeholderImage;
-  this.title = info.title || 'No title available';
-  this.isbn = `ISBN_13 ${info.industryIdentifiers[0].identifier}` || 'No ISBN available';
-  this.author = info.authors[0] || 'No author available';
-  this.description = info.description || 'no description available';
-}
 

@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <%- include('../layouts/head') %>
+      <%- include('../../layouts/head') %>
   </head>
+
   <body>
-        <%- include('../layouts/header') %>
+    <header>
+      <%- include('../../layouts/header') %>
+    </header>
+
     <main>
       <h4>Search Results</h4>
         <ul class="search-results">
-          <% searchResults.forEach(results => { %>
+          <% results.forEach(book => { %>
             <li id= <%= book.isbn %>
-              <div class="book-containder">
-                <img src=<%= results.image_url %>>
-                <section>
-                  <h3><%= results.title %></h3>
-                  <span><%= results.author %></span>
-                  <p class="description"><%= results.description %></p>
-              </section>
-            </div>
-          </li>
-        <% }); %>
+              <%- include('../books/detail', {book: book}); %>
+              <p class="detail-button"><a href="/books/<%= book.id %>">View details</a></p>
+              <p class="detail-button"><a href="/books/<%= book.id %>">Add book</a></p>
+            </li>
+          <% }); %>
         </ul>
     </main>
-    <%- include('../layout/footer') %>
+
+    <footer>
+      <%- include('../../layouts/footer') %>
+    </footer>
   </body>
 </html>
 

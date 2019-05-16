@@ -3,21 +3,28 @@
   <head>
       <%- include('../layouts/head') %>
   </head>
+
   <body>
-        <%- include('../layouts/header') %>
+    <header>
+      <%- include('../layouts/header') %>
+    </header>
+
     <main>
       <h4>Saved Results</h4>
         <p>Total number of books: <%= results.length %></p>
         <ul id="search-results">
           <% results.forEach(function(book) { %>
             <li class="book-items" data-book-id=" <%= book.id %>">
-              <%- include('books/detail', {book: book}) %>
-              <p> class="detail-button"><a href="/books/<%= book.id %>">View details</a></p>
-            </li>"
+              <%- include('books/detail', {book: book}); %>
+              <p class="detail-button"><a href="/books/<%= book.id %>">View details</a></p>
+            </li>
           <% }) %>
         </ul>
     </main>
-    <%- include('../layout/footer') %>
+
+    <footer>
+      <%- include('../layouts/footer') %>
+    </footer>
   </body>
 </html>
 
