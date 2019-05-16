@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <%- include('../layouts/head') %>
+    <%- include('../layouts/head') %>
   </head>
+
   <body>
-        <%- include('../layouts/header') %>
+    <header>
+      <%- include('../layouts/header') %>
+    </header>
+
     <main>
       <section class="book-container">
       <%- include('../layouts/form', {formAction: 'update', book:book}) %>
       </section>
     </main>
-    <%- include('../layout/footer') %>
+
+    <footer>
+      <%- include('../layout/footer') %>
+    </footer>
   </body>
 </html>

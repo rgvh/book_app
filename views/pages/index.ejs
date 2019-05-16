@@ -3,8 +3,12 @@
   <head>
       <%- include('../layouts/head') %>
   </head>
+
   <body>
-        <%- include('../layouts/header') %>
+    <header>
+      <%- include('../layouts/header') %>
+    </header>
+
     <main>
       <h4>Saved Results</h4>
         <p>Total number of books: <%= results.length %></p>
@@ -17,7 +21,10 @@
           <% }) %>
         </ul>
     </main>
-    <%- include('../layout/footer') %>
+
+    <footer>
+      <%- include('../layout/footer') %>
+    </footer>
   </body>
 </html>
 
