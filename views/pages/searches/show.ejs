@@ -22,6 +22,8 @@
                   <p class="description"><%= book.description %></p>
                   </section>
               </div>
+              <p class="detail-button"><a href="/books/<%= book.id %>">View details</a></p>
+              <p class="detail-button"><a href="/books/<%= book.id %>">Add book</a></p>
             </li>
           <% }); %>
         </ul>
