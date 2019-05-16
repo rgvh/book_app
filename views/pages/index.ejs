@@ -15,14 +15,7 @@
         <ul id="search-results">
           <% results.forEach(function(book) { %>
             <li class="book-items" data-book-id=" <%= book.id %>">
-                <div class="book-container">
-                  <img src=<%= book.image_url %>
-                  <section>
-                    <h3><%= book.title %></h3>
-                    <span><%= book.author %></span>
-                    <p class="description"><%= book.description %></p>
-                  </section>
-                </div>
+              <%- include('books/detail', {book: book}); %>
               <p class="detail-button"><a href="/books/<%= book.id %>">View details</a></p>
             </li>
           <% }) %>
