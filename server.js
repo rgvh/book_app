@@ -45,10 +45,10 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 
-  this.image_url = info.imageLinks.smallThumbnail || placeholderImage;
+  this.image_url = info.imageLinks.thumbnail || placeholderImage;
   this.title = info.title || 'No title available';
-  this.isbn = `ISBN_13 ${info.industryIdentifiers[0].identifier}` || 'No ISBN available';
-  this.author = info.authors[0] || 'No author available';
+  this.isbn = `ISBN_13 ${info.industryIdentifiers.identifier}` || 'No ISBN available';
+  this.author = info.authors || 'No author available';
   this.description = info.description || 'no description available';
 }
 
