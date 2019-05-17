@@ -15,11 +15,11 @@
           <% results.forEach(book => { %>
             <li id= <%= book.isbn %>
               <%- include('../books/detail', {book: book}); %>
-              <p class="detail-button"><a href="/books/<%= book.id %>">View details</a></p>
-              <p class="detail-button"><a href="/books/<%= book.id %>">Add book</a></p>
+              <button type="button" class="detail-button">Select this Book</button>
             </li>
           <% }); %>
         </ul>
+        
     </main>
 
     <footer>
