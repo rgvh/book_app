@@ -44,12 +44,16 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+  let httpRegex = /^(http:\/\/)/g;
 
-  this.image_url = info.imageLinks.thumbnail || placeholderImage;
-  this.title = info.title || 'No title available';
-  this.isbn = `ISBN_13 ${info.industryIdentifiers.identifier}` || 'No ISBN available';
-  this.author = info.authors || 'No author available';
-  this.description = info.description || 'no description available';
+  // this.image_url = info.imageLinks.thumbnail.replace(httpRegex, 'https://') || placeholderImage;
+  this.image_url = info.imageLinks ? info.imageLinks.thumbnail.replace(httpRegex, 'https://') : placeholderImage;
+  this.title = info.title ? info.title : 'No title available';
+  // this.isbn = `ISBN_13 ${info.industryIdentifiers.identifier}` || 'No ISBN available';
+  this.isbn = info.industryIdentifiers ? `ISBN_13 ${info.industryIdentifiers[0].identifier}` : 'No author available';
+  // this.author = info.authors || 'No author available';
+  this.author = info.authors ? info.authors[0] : 'No author available';
+  this.description = info.description ? info.description : 'no description available';
 }
 
 function getBooks(request, response) {
