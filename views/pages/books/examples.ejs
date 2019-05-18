@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../layouts/head') %>
+  </head>
+
+  <body>
+    <header>
+      <%- include('../layouts/header') %>
+    </header>
+
+    <main>
+      <section class="book-container">
+      <%- include('../layouts/form', {formAction: 'update', book:book}) %>
+      </section>
+    </main>
+
+    <footer>
+      <%- include('../layout/footer') %>
+    </footer>
+  </body>
+</html>
+
+<div>
+    <%- include('../../layouts/form') %>
+  </div>
+
+  <p class="detail-button"><a href="/books/<%= book.id %>">Select this Book</a></p>

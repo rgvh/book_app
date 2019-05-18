@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <%- include('../layouts/head') %>
+  </head>
 
-<head>
-  <%- include('./layouts/head') %>
-</head>
+  <body>
+    <header>
+      <%- include('../layouts/header') %>
+    </header>
 
-<body>
-  <header>
-  <%- include('./layouts/header') %>
-  </header>
-  <main>
-    <p>The error page is working. See?</p>
-    <p><%= error ) %></p>
-  </main>
-</body>
+    <main>
+      <p>The error page is working. See?</p>
+      <p><%= error %></p>
+    </main>
 
+    <footer>
+      <%- include('../layouts/footer') %>
+    </footer>
+  </body>
 </html>

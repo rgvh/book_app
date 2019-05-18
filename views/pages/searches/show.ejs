@@ -1,24 +1,31 @@
+<!-- Shows search results -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <%- include('../layouts/head') %>
+      <%- include('../../layouts/head') %>
   </head>
+
   <body>
     <header>
-        <%- include('../layouts/header') %>
+      <%- include('../../layouts/header') %>
     </header>
+
     <main>
       <h4>Search Results</h4>
-      <div>
-      <% searchResults.forEach(results => { %>
-        <img src=<%= results.image_url %>>
-      <h3><%= results.title %></h3>
-      <ul>
-        <li><%= results.author %></li>
-      </ul>
-      <p><%= results.description %></p>
-    <% }); %>
-      </div>
+        <ul class="search-results">
+          <% results.forEach(book => { %>
+            <li id= <%= book.isbn %>
+              <%- include('../books/detail', {book: book}); %>
+              <button type="button" class="detail-button">Select this Book</button>
+            </li>
+          <% }); %>
+        </ul>    
     </main>
+
+    <footer>
+      <%- include('../../layouts/footer') %>
+    </footer>
   </body>
 </html>
+

@@ -1,29 +1,35 @@
+<!-- home page, shows book collection -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
       <%- include('../layouts/head') %>
   </head>
+
   <body>
     <header>
-        <%- include('../layouts/header') %>
+      <%- include('../layouts/header') %>
     </header>
+
     <main>
-      <h4>Search Results</h4>
-        <ul class="search-results"></ul>
+      <h4>Saved Results</h4>
+        <p>Total number of books: <%= results.length %></p>
+        <ul id="search-results">
           <% results.forEach(function(book) { %>
-            <li id= <%= book.isbn %>
-              <div class="book-container">
-                <img src=<%= book.image_url %>
-                <section>
-                  <h3><%= book.title %></h3>
-                  <span><%= book.author %></span>
-                  <p class="description"><%= book.description %></p>
-                </section>
-              </div>
+            <li class="book-items" data-book-id=" <%= book.id %>">
+              <%- include('books/detail', {book: book}); %>
+              <button class="detail-button"><a href="books/<%= book.id %>">View details</a></button>
             </li>
-          <% }); %>
-          </ul>
+          <% }) %>
+        </ul>
     </main>
-  <footer>
+
+    <footer>
+      <%- include('../layouts/footer') %>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  </body>
 </html>
 
