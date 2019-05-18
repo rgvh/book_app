@@ -21,6 +21,17 @@ client.on('error', err => console.error(err));
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static('public'));
 
+// Method override to change POST to PUT for updates
+
+app.use(methodOverride((request, response) => {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    // look in urlencoded POST body and delete it
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}))
+
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
@@ -31,6 +42,8 @@ app.post('/searches', createSearch);
 app.get('/searches/new', newSearch);
 app.post('/books', createBook);
 app.get('/books/:id', getBook);
+app.put('/books/:id', updateBook);
+app.delete('/books/:id', deleteBook);
 
 
 // Catch-all
