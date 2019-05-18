@@ -1,3 +1,5 @@
+<!-- Shows details of one book -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,6 +13,8 @@
     
     <main>
       <%- include('books/detail', {book: book}); %>
+      <button type="button" class="update-button">Update details</button>
+      <button type="button" class="delete-button">Delete Book</button>
     </main>
 
     <footer>

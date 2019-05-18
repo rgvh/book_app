@@ -1,5 +1,7 @@
 body {
+  width: 480px;
   background-color: lightskyblue;
+  margin: 0px auto;
 }
 
 header {

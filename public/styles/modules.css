@@ -1,3 +1,29 @@
 #form-details {
   display: none;
 }
+
+button {
+  border: none;
+  border-radius: 3px;
+  background: #000;
+  color: #fff;
+  padding: 8px 20px;
+}
+
+@media only screen and (min-width: 760px) {
+
+  body {
+    width: 960px;
+    margin: 0px auto;
+  }
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+  body {
+    width: 1600px;
+    margin: 0px auto;   
+  }
+  
+}
