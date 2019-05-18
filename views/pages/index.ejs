@@ -18,7 +18,7 @@
           <% results.forEach(function(book) { %>
             <li class="book-items" data-book-id=" <%= book.id %>">
               <%- include('books/detail', {book: book}); %>
-              <button class="detail-button"><a href="/books/<%= book.id %>">View details</a></button>
+              <button class="detail-button"><a href="books/<%= book.id %>">View details</a></button>
             </li>
           <% }) %>
         </ul>
