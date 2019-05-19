@@ -26,3 +26,15 @@
   </div>
 
   <p class="detail-button"><a href="/books/<%= book.id %>">Select this Book</a></p>
+
+<h2 class="view-title"><%- "update" === formAction ? "Update book" : "Add book" %></h2>
+<form action="<%= 'update' === formAction ? `/update/${book.id}` : '/add' %>" method="post">
+  <input type="hidden" name="_method" value="<%- 'update' === formAction ? 'put' : 'post' %>">
+  <input type="text" name="title" value="<%- book.title %>" placeholder="Book title">
+  <input type="text" name="author" value="<%- book.author %>" placeholder="Book author">
+  <input type="text" name="isbn" value="<%- book.isbn %>" placeholder="Book isbn">
+  <input type="text" name="image_url" value="<%- book.image_url %>" placeholder="Book url">
+  <input type="text" name="description" value="<%- book.description %>" placeholder="Book description">
+  <input type="text" name="bookshelf" value="<%- book.bookshelf %>" placeholder="Bookshelf category">
+  <button type="submit"><%- 'update' === formAction ? "Update book" : "Add book" %></button>
+</form>

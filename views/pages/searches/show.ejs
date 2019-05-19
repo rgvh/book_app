@@ -18,6 +18,9 @@
             <li id= <%= book.isbn %>
               <%- include('../books/detail', {book: book}); %>
               <button type="button" class="detail-button">Select this Book</button>
+              <section class="book-container">
+                <%- include('../../layouts/form', {formAction: 'update', book:book}) %>
+              </section>
             </li>
           <% }); %>
         </ul>    

@@ -44,7 +44,7 @@ app.post('/searches', createSearch);
 app.get('/searches/new', newSearch);
 app.post('/books', createBook);
 app.get('/books/:id', getBook);
-app.put('/books/:id', updateBook);
+app.put('/update/:id', updateBook);
 // app.delete('/books/:id', deleteBook);
 
 
@@ -90,23 +90,21 @@ function getBooks(request, response) {
 function newSearch(request, response) {
   response.render('pages/searches/new');
 }
+
 function createBook(request, response) {
   let normalizedShelf = request.body.bookshelf.toLowerCase();
 
   let { title, author, isbn, image_url, description } = request.body;
-  let SQL = 'INSERT INTO books(title, author, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6);';
+  let SQL = 'INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
   let values = [title, author, isbn, image_url, description, normalizedShelf];
 
   return client.query(SQL, values)
-    .then(() => {
-      SQL = 'SELECT * FROM books WHERE isbn=$1;';
-      values = [request.body.isbn];
-      return client.query(SQL, values)
-        .then(result => response.redirect(`/books/$(result.rows[0].id)}`))
-        .catch(handleError);
-    })
+    // .then(() => {
+    //   SQL = 'SELECT * FROM books WHERE isbn=$1;';
+    //   values = [request.body.isbn];
+    //   return client.query(SQL, values)
+        .then(result => response.redirect('/'))
     .catch(err => handleError(err, response));
-
 }
 
 function getBook(request, response) {
@@ -131,20 +129,19 @@ function updateBook(request, response) {
   console.log(request.body.bookshelf);
 
   let { title, author, isbn, image_url, description } = request.body;
-  let SQL = 'UPDATE books SET(title, author, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6) WHERE id=$1;';
-  let values = [title, author, isbn, image_url, description, normalizedShelf];
+  let SQL = 'UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;';
+  let values = [title, author, isbn, image_url, description, normalizedShelf, id];
 
   return client.query(SQL, values)
-    .then(() => {
-      SQL = 'SELECT * FROM books WHERE isbn=$1;';
-      values = [request.body.isbn];
-      return client.query(SQL, values)
+    // .then(() => {
+    //   SQL = 'SELECT * FROM books WHERE isbn=$1;';
+    //   values = [request.body.isbn];
+    //   return client.query(SQL, values)
         .then(result => response.redirect(`/books/$(result.rows[0].id)}`))
-        .catch(handleError);
-    })
+    //     .catch(handleError);
+    // })
     .catch(err => handleError(err, response));
-
-}
+};
 
 // Does handleError function need to move here???
 
