@@ -1,5 +1,5 @@
-<h2 class="view-title"><%- "update" === formAction ? "Update book" : "Add book" %></h2>
-<form action="<%= 'update' === formAction ? `/update/${book.id}` : '/books' %>" method="post">
+<h2 class="view-title"><%- "update" === formAction ? "Update book" : "Add book" %></h2> 
+<form action="<%= 'update' === formAction ? `/books/${book.id}` : '/books' %>" method="post">
   <input type="hidden" name="_method" value="<%- 'update' === formAction ? 'put' : 'post' %>">
   <input type="text" name="title" value="<%- book.title %>" placeholder="Book title">
   <input type="text" name="author" value="<%- book.author %>" placeholder="Book author">

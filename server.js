@@ -46,7 +46,7 @@ app.post('/searches', createSearch);
 app.get('/searches/new', newSearch);
 app.post('/books', createBook);
 app.get('/books/:id', getBook);
-app.put('/update/:id', updateBook);
+app.put('/books/:id', updateBook);
 // app.delete('/books/:id', deleteBook);
 
 
@@ -130,16 +130,17 @@ function updateBook(request, response) {
   let normalizedShelf = request.body.bookshelf.toLowerCase();
   console.log(request.body.bookshelf);
 
-  let { title, author, isbn, image_url, description } = request.body;
+  let id = request.params.id; // what id of book did the user select
+  let { title, author, isbn, image_url, description } = request.body; 
   let SQL = 'UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;';
-  let values = [title, author, isbn, image_url, description, normalizedShelf, id];
+  let values = [title, author, isbn, image_url, description, normalizedShelf, id]; 
 
   return client.query(SQL, values)
     // .then(() => {
     //   SQL = 'SELECT * FROM books WHERE isbn=$1;';
     //   values = [request.body.isbn];
     //   return client.query(SQL, values)
-        .then(result => response.redirect(`/books/$(result.rows[0].id)}`))
+        .then(result => response.redirect(`/books/${id}`))
     //     .catch(handleError);
     // })
     .catch(err => handleError(err, response));
