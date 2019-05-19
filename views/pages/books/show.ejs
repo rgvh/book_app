@@ -12,10 +12,15 @@
     </header>
     
     <main>
+      
       <%- include('../books/detail', {book: book}); %>
       <button type="button" class="update-button">Update details</button>
-      <button type="button" class="delete-button">Delete Book</button>
+      <button type="button" class="delete-button">Delete Book</button> 
+      <section class="book-container">
+          <%- include('../../layouts/form', {formAction: 'update', book:book}) %>
+          </section>
     </main>
+    
 
     <footer>
       <%- include('../../layouts/footer') %>
