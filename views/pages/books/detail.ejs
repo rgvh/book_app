@@ -2,7 +2,11 @@
   <img src=<%= book.image_url %>
   <section>
     <h3><%= book.title %></h3>
-    <span><%= book.author %></span>
+      <span><%= book.author %></span>
     <p class="description"><%= book.description %></p>
+    <ul>
+      <li>ISBN: <%= book.isbn %></li>
+      <li>Bookshelf:<%= book.bookshelf %></li>
+    </ul>
   </section>
 </div>

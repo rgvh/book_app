@@ -45,7 +45,7 @@ app.get('/searches/new', newSearch);
 app.post('/books', createBook);
 app.get('/books/:id', getBook);
 app.put('/books/:id', updateBook);
-// app.delete('/books/:id', deleteBook);
+app.delete('/books/:id', deleteBook);
 
 
 // Catch-all
@@ -61,12 +61,9 @@ function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
   let httpRegex = /^(http:\/\/)/g;
 
-  // this.image_url = info.imageLinks.thumbnail.replace(httpRegex, 'https://') || placeholderImage;
   this.image_url = info.imageLinks ? info.imageLinks.thumbnail.replace(httpRegex, 'https://') : placeholderImage;
   this.title = info.title ? info.title : 'No title available';
-  // this.isbn = `ISBN_13 ${info.industryIdentifiers.identifier}` || 'No ISBN available';
   this.isbn = info.industryIdentifiers ? `ISBN_13 ${info.industryIdentifiers[0].identifier}` : 'No author available';
-  // this.author = info.authors || 'No author available';
   this.author = info.authors ? info.authors[0] : 'No author available';
   this.description = info.description ? info.description : 'no description available';
 }
@@ -90,23 +87,17 @@ function getBooks(request, response) {
 function newSearch(request, response) {
   response.render('pages/searches/new');
 }
+
 function createBook(request, response) {
   let normalizedShelf = request.body.bookshelf.toLowerCase();
 
   let { title, author, isbn, image_url, description } = request.body;
-  let SQL = 'INSERT INTO books(title, author, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6);';
+  let SQL = 'INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
   let values = [title, author, isbn, image_url, description, normalizedShelf];
 
   return client.query(SQL, values)
-    .then(() => {
-      SQL = 'SELECT * FROM books WHERE isbn=$1;';
-      values = [request.body.isbn];
-      return client.query(SQL, values)
-        .then(result => response.redirect(`/books/$(result.rows[0].id)}`))
-        .catch(handleError);
-    })
+    .then(result => response.redirect('/'))
     .catch(err => handleError(err, response));
-
 }
 
 function getBook(request, response) {
@@ -130,21 +121,15 @@ function updateBook(request, response) {
   let normalizedShelf = request.body.bookshelf.toLowerCase();
   console.log(request.body.bookshelf);
 
-  let { title, author, isbn, image_url, description } = request.body;
-  let SQL = 'UPDATE books SET(title, author, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6) WHERE id=$1;';
-  let values = [title, author, isbn, image_url, description, normalizedShelf];
+  let id = request.params.id; // what id of book did the user select
+  let { title, author, isbn, image_url, description } = request.body; 
+  let SQL = 'UPDATE books SET title=$1, author=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;';
+  let values = [title, author, isbn, image_url, description, normalizedShelf, id]; 
 
   return client.query(SQL, values)
-    .then(() => {
-      SQL = 'SELECT * FROM books WHERE isbn=$1;';
-      values = [request.body.isbn];
-      return client.query(SQL, values)
-        .then(result => response.redirect(`/books/$(result.rows[0].id)}`))
-        .catch(handleError);
-    })
+    .then(result => response.redirect(`/books/${id}`))
     .catch(err => handleError(err, response));
-
-}
+};
 
 // Does handleError function need to move here???
 
@@ -167,6 +152,15 @@ function createSearch(request, response) {
     .then(results => response.render('pages/searches/show', { results: results }))
     .catch(err => handleError(err, response));
 }
+
+function deleteBook(request, response) {
+  let SQL = 'DELETE FROM books WHERE id=$1;';
+  let values = [request.params.id];
+  
+  return client.query(SQL, values)
+    .then(result => response.redirect('/'))
+    .catch(err => handleError(err, response));
+};
 
 function handleError(error, response) {
   response.status(500).render('pages/error', {error: error});
