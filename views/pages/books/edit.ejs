@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <%- include('../layouts/head') %>
-  </head>
+<!-- <h2 class="view-title"><%- "update" === formAction ? "Update book" : "Add book" %></h2> -->
+<!-- <form action="<%= 'update' === formAction ? `/update/${book.id}` : '/add' %>" method="post"> -->
+<form id="<%= formAction %>-form" class="hide-me" action="/books/<%='update' === formActoin ? book.id : '' %>" method="post">
+  <input type="hidden" name="_method" value="<%= 'update' === formAction ? 'put' : 'post' %>">
+  <input type="text" name="title" value="<%= book.title %>" required>
+  <input type="text" name="author" value="<%= book.author %>" required>
+  <input type="text" name="isbn" value="<%= book.isbn %>">
+  <input type="text" name="image_url" value="<%= book.image_url %>">
+  <textarea name="description" cols="30" rows="5" value="<%= book.description %></textarea>
 
-  <body>
-    <header>
-      <%- include('../layouts/header') %>
-    </header>
-    
-    <main>
-
-    </main>
-
-    <footer>
-      <%- include('../layout/footer') %>
-    </footer>
-  </body>
-</html>
+  <% if ('create' === fromAction) { %>
+    <input type="text" name="bookshelf" placeholder="Bookshelf category" required>
+  <% } else { %>
+    <select name="bookshelf" id="">
+      <% bookshelves.forEach(shelf => {
+        let selected = ( book.bookshelf === shelf.bookshelf ) ? 'selected' : '';
+      %>
+      <option value="<%= shelf.bookshelf %>" <%=selected %> >
+        <%= shelf.bookshelf %>
+      </option>
+      <% }) %>
+    </select>
+  <% } %>
+  <button type="submit"><%- 'update' === formAction ? "Update book" : "Add book" %></button>
+</form>
