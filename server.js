@@ -26,9 +26,7 @@ app.use(methodOverride('_method'));
 // Method override to change POST to PUT for updates
 
 app.use(methodOverride((request, response) => {
-  console.log(request.body._method);
   if (request.body && typeof request.body === 'object' && '_method' in request.body) {
-    console.log('Helloooooooooo');
     // look in urlencoded POST body and delete it
     let method = request.body._method;
     delete request.body._method;
@@ -47,7 +45,7 @@ app.get('/searches/new', newSearch);
 app.post('/books', createBook);
 app.get('/books/:id', getBook);
 app.put('/books/:id', updateBook);
-// app.delete('/books/:id', deleteBook);
+app.delete('/books/:id', deleteBook);
 
 
 // Catch-all
@@ -63,12 +61,9 @@ function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
   let httpRegex = /^(http:\/\/)/g;
 
-  // this.image_url = info.imageLinks.thumbnail.replace(httpRegex, 'https://') || placeholderImage;
   this.image_url = info.imageLinks ? info.imageLinks.thumbnail.replace(httpRegex, 'https://') : placeholderImage;
   this.title = info.title ? info.title : 'No title available';
-  // this.isbn = `ISBN_13 ${info.industryIdentifiers.identifier}` || 'No ISBN available';
   this.isbn = info.industryIdentifiers ? `ISBN_13 ${info.industryIdentifiers[0].identifier}` : 'No author available';
-  // this.author = info.authors || 'No author available';
   this.author = info.authors ? info.authors[0] : 'No author available';
   this.description = info.description ? info.description : 'no description available';
 }
@@ -101,11 +96,7 @@ function createBook(request, response) {
   let values = [title, author, isbn, image_url, description, normalizedShelf];
 
   return client.query(SQL, values)
-    // .then(() => {
-    //   SQL = 'SELECT * FROM books WHERE isbn=$1;';
-    //   values = [request.body.isbn];
-    //   return client.query(SQL, values)
-        .then(result => response.redirect('/'))
+    .then(result => response.redirect('/'))
     .catch(err => handleError(err, response));
 }
 
@@ -136,13 +127,7 @@ function updateBook(request, response) {
   let values = [title, author, isbn, image_url, description, normalizedShelf, id]; 
 
   return client.query(SQL, values)
-    // .then(() => {
-    //   SQL = 'SELECT * FROM books WHERE isbn=$1;';
-    //   values = [request.body.isbn];
-    //   return client.query(SQL, values)
-        .then(result => response.redirect(`/books/${id}`))
-    //     .catch(handleError);
-    // })
+    .then(result => response.redirect(`/books/${id}`))
     .catch(err => handleError(err, response));
 };
 
@@ -167,6 +152,15 @@ function createSearch(request, response) {
     .then(results => response.render('pages/searches/show', { results: results }))
     .catch(err => handleError(err, response));
 }
+
+function deleteBook(request, response) {
+  let SQL = 'DELETE FROM books WHERE id=$1;';
+  let values = [request.params.id];
+  
+  return client.query(SQL, values)
+    .then(result => response.redirect('/'))
+    .catch(err => handleError(err, response));
+};
 
 function handleError(error, response) {
   response.status(500).render('pages/error', {error: error});
