@@ -25,14 +25,14 @@ app.use(methodOverride('_method'));
 
 // Method override to change POST to PUT for updates
 
-// app.use(methodOverride((request, response) => {
-//   if (request.body && typeof request.body === 'object' && '_method' in request.body) {
-//     // look in urlencoded POST body and delete it
-//     let method = request.body._method;
-//     delete request.body._method;
-//     return method;
-//   }
-// }))
+app.use(methodOverride((request, response) => {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    // look in urlencoded POST body and delete it
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}))
 
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
@@ -44,7 +44,7 @@ app.post('/searches', createSearch);
 app.get('/searches/new', newSearch);
 app.post('/books', createBook);
 app.get('/books/:id', getBook);
-// app.put('/books/:id', updateBook);
+app.put('/books/:id', updateBook);
 // app.delete('/books/:id', deleteBook);
 
 
@@ -124,6 +124,26 @@ function getBookshelves() {
   let SQL = 'SELECT DISTINCT bookshelf FROM books ORDER BY bookshelf;';
 
   return client.query(SQL);
+}
+
+function updateBook(request, response) {
+  let normalizedShelf = request.body.bookshelf.toLowerCase();
+  console.log(request.body.bookshelf);
+
+  let { title, author, isbn, image_url, description } = request.body;
+  let SQL = 'UPDATE books SET(title, author, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6) WHERE id=$1;';
+  let values = [title, author, isbn, image_url, description, normalizedShelf];
+
+  return client.query(SQL, values)
+    .then(() => {
+      SQL = 'SELECT * FROM books WHERE isbn=$1;';
+      values = [request.body.isbn];
+      return client.query(SQL, values)
+        .then(result => response.redirect(`/books/$(result.rows[0].id)}`))
+        .catch(handleError);
+    })
+    .catch(err => handleError(err, response));
+
 }
 
 // Does handleError function need to move here???
