@@ -19,7 +19,7 @@
               <%- include('../books/detail', {book: book}); %>
               <button type="button" class="detail-button">Select this Book</button>
               <section class="book-container">
-                <%- include('../../layouts/form', {formAction: 'update', book:book}) %>
+                <%- include('../../layouts/form', {formAction: 'add', book:book}) %>
               </section>
             </li>
           <% }); %>

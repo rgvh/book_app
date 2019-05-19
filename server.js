@@ -26,7 +26,9 @@ app.use(methodOverride('_method'));
 // Method override to change POST to PUT for updates
 
 app.use(methodOverride((request, response) => {
+  console.log(request.body._method);
   if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    console.log('Helloooooooooo');
     // look in urlencoded POST body and delete it
     let method = request.body._method;
     delete request.body._method;
