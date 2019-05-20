@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   width: 480px;
   background-color: lightskyblue;
@@ -10,7 +14,12 @@ header {
   color: white;
 }
 
+.icon-menu {
+
+}
+
 main {
+  margin-top: 1em;
   background-color: lightsteelblue
 }
 
